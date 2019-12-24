@@ -3,26 +3,26 @@ use std::io;
 fn main() {
     println!("Enter the amount of iterations");
 
-    loop {
-        let mut iterations = String::with_capacity(100);
+    let iterations: u32 = loop {
+        let mut input = String::with_capacity(100);
 
         io::stdin()
-            .read_line(&mut iterations)
+            .read_line(&mut input)
             .expect("Error reading input");
 
-        let iterations: u32 = match iterations.trim().parse() {
+        let input: u32 = match input.trim().parse() {
             Ok(num) => num,
             Err(_) => {
-                println!("Please enter a valid input");
+                println!("Please enter a valid input as number");
                 continue;
             }
         };
 
-        for number in 0..iterations + 1 {
-            println!("{}", fibonacci(number));
-        }
+        break input;
+    };
 
-        break;
+    for number in 0..iterations + 1 {
+        println!("{}", fibonacci(number));
     }
 }
 
