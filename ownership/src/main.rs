@@ -8,12 +8,12 @@
  * - Array
  * - Tuples
  * - str (can live on the heap, stack or binary, see here https://stackoverflow.com/questions/24158114/what-are-the-differences-between-rusts-string-and-str/24159933#24159933)
- * 
+ *
  * Heap data
  * - Vec
  * - String
  * - Box
- * 
+ *
  * String vs str: https://www.ameyalokare.com/rust/2017/10/12/rust-str-vs-String.html#fn:1
  **/
 
@@ -54,4 +54,19 @@ fn ownership() {
     let x = String::from("hello string");
     let y = x; // <--- x is not longer valid, we *moved* the value to var "y", not copy/clones
     println!("y = {:?}", y);
+
+    let mut x = String::from("Heap string");
+
+    // We need a scope since we cant have a mutable and inmutable reference at the same time
+    {
+        let y = &x; // <--- borrowing
+        fancy_print(y);
+    }
+
+    x.push_str(" , I was mutated!");
+    println!("x = {}", x);
+}
+
+fn fancy_print(s: &str) -> () {
+    println!("fancy print of s = {}", s);
 }
