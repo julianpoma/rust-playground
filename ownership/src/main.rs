@@ -65,8 +65,33 @@ fn ownership() {
 
     x.push_str(" , I was mutated!");
     println!("x = {}", x);
+
+    let mut x = String::from("Lovely car");
+
+    {
+        let r1 = &x;
+        println!("First word: {}", first_word(r1));
+    }
+    
+    let r2 = &mut x;
+    add_color(r2);
+    println!("Changed: {:?}", x);
 }
 
 fn fancy_print(s: &str) -> () {
     println!("fancy print of s = {}", s);
+}
+
+fn first_word(my_string: &String) -> &str {
+    for (i, &byte) in my_string.as_bytes().iter().enumerate() {
+        if byte == b' ' {
+            return &my_string[..i];
+        }
+    }
+
+    &my_string[..]
+}
+
+fn add_color(my_string: &mut String) {
+    my_string.push_str(" is red");
 }
