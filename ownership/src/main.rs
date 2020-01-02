@@ -67,15 +67,14 @@ fn ownership() {
     println!("x = {}", x);
 
     let mut x = String::from("Lovely car");
-
-    {
-        let r1 = &x;
-        println!("First word: {}", first_word(r1));
-    }
     
-    let r2 = &mut x;
-    add_color(r2);
+    println!("First word: {}", first_word(&x));
+    add_color(&mut x);
+
     println!("Changed: {:?}", x);
+
+    let x = 4;
+    println!("{}! = {}", x, factorial(x));
 }
 
 fn fancy_print(s: &str) -> () {
@@ -94,4 +93,12 @@ fn first_word(my_string: &String) -> &str {
 
 fn add_color(my_string: &mut String) {
     my_string.push_str(" is red");
+}
+
+fn factorial(number: u32) -> u32 {
+    if number == 0 || number == 1 {
+        return 1;
+    }
+
+    number * factorial(number - 1)
 }
