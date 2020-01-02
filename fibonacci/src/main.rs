@@ -21,8 +21,28 @@ fn main() {
         break input;
     };
 
-    for number in 0..iterations + 1 {
-        println!("{}", fibonacci(number));
+    println!("{}", fibonacci(iterations));
+    println!("{}", fibonacci_loop(iterations));
+}
+
+fn fibonacci_loop(count: u32) -> u32 {
+    let mut a = 0;
+    let mut b = 1;
+
+    for c in { 0..count } {
+        let next = a + b;
+
+        if c % 2 == 1 {
+            a = next;
+        } else {
+            b = next;
+        }
+    }
+
+    if count % 2 == 0 {
+        a
+    } else {
+        b
     }
 }
 
